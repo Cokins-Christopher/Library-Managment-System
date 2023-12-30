@@ -6,8 +6,8 @@ import Signup from "./pages/Singup";
 import Home from "./pages/Home";
 import Reservation from "./pages/Reservations"
 import Account from "./pages/Account";
-import "./App.css";
 import UpdateInfo from "./pages/UpdateInfo";
+import "./App.css";
 
 function App() {
   return (
