@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useLocation } from "react-router-dom";
 import axios from "axios";
-import { Navbar } from "./Navbar";
+import { Navbar } from "../components/Navbar";
 
 function Reservations() {
   const [books, setBooks] = useState([]);
@@ -37,6 +37,14 @@ function Reservations() {
 
   const handleFinish = async (bookID, reservationID) => {
     try {
+      const returnDate = new Date().toISOString().split("T")[0]; // Current date in YYYY-MM-DD format
+      // Update the reservation history to mark the book as returned
+      await axios.put(
+        `http://localhost:8900/reservation-history/${reservationID}`,
+        {
+          DateReturned: returnDate,
+        }
+      );
       // Remove the reservation
       await axios.delete(`http://localhost:8900/reservations/${reservationID}`);
 
@@ -52,11 +60,20 @@ function Reservations() {
     }
   };
 
+  if (books.length === 0) {
+    return (
+      <div className="reservations-container">
+        <Navbar />
+        <h2>You Have No Outstanding Reservations!</h2>
+      </div>
+    );
+  }
+
   return (
-    <div>
+    <div className="reservations-container">
       <Navbar />
       <h2>Reserved Books</h2>
-      <table>
+      <table className="reservations-table">
         <thead>
           <tr>
             <th>Title</th>

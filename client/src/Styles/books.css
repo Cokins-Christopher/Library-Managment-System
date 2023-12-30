@@ -1,0 +1,55 @@
+.books-container {
+    padding: 2rem;
+    background-color: #f3f4f6; /* Light gray background */
+}
+
+.books-container h1 {
+    color: #0f172a; /* Dark blue */
+    text-align: center;
+}
+
+.books-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 1rem;
+}
+
+.books-table th, .books-table td {
+    border: 1px solid #e2e8f0; /* Light gray border */
+    padding: 0.75rem;
+    text-align: left;
+}
+
+.books-table th {
+    background-color: #1d4ed8; /* Blue */
+    color: white;
+}
+
+.books-table td {
+    background-color: #fff;
+}
+
+.books-table img {
+    width: 100px;
+    height: auto;
+    display: block;
+    margin: 0 auto;
+}
+
+.reserve-button {
+    padding: 0.5rem 1rem;
+    background-color: #10b981; /* Green */
+    color: white;
+    border: none;
+    border-radius: 0.25rem;
+    cursor: pointer;
+}
+
+.reserve-button:hover {
+    background-color: #059669; /* Darker green */
+}
+
+.reserve-button:disabled {
+    background-color: #94a3b8; /* Gray */
+    cursor: default;
+}

@@ -1,0 +1,23 @@
+.home-container {
+  display: flex;
+  justify-content: space-around; /* This will spread out the boxes evenly */
+  padding: 20px;
+  flex-wrap: wrap; /* Allows boxes to wrap to the next line */
+}
+
+.box {
+  flex: 1; /* Each box takes equal width */
+  max-width: calc(33.333% - 40px); /* Adjust for padding and margins */
+  border: 1px solid #ccc;
+  padding: 20px;
+  text-align: center;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  text-decoration: none;
+  color: inherit;
+  margin-bottom: 20px; /* Spacing between rows */
+}
+
+.box:hover {
+  background-color: #f0f0f0;
+}

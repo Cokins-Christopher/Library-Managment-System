@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { Link, useLocation } from "react-router-dom";
-import { Navbar } from "./Navbar";
+import { Navbar } from "../components/Navbar";
 
 const Books = () => {
   const [books, setBooks] = useState([]);
@@ -10,7 +10,6 @@ const Books = () => {
   const userID = location.pathname.split("/")[2];
 
   const getReservationStatus = (bookID) => {
-    
     return null;
   };
 
@@ -52,16 +51,38 @@ const Books = () => {
 
       // Update the book's availability on the server
       await axios.put(`http://localhost:8900/books/${bookID}`, bookUpdate);
+      const currentDate = new Date().toISOString().split("T")[0];
 
       // Prepare the reservation data
       const reservationData = {
         UserID: userID,
         BookID: bookID,
-        ReservationDate: new Date().toISOString().split("T")[0], // Format the date as YYYY-MM-DD
+        ReservationDate: currentDate, // Format the date as YYYY-MM-DD
       };
 
-      // Add a reservation entry
-      await axios.post("http://localhost:8900/reservations", reservationData);
+      // Add a reservation entry to the Reservations table
+      const reservationResponse = await axios.post(
+        "http://localhost:8900/reservations",
+        reservationData
+      );
+
+      // Check if reservation was successful before adding to history
+      if (
+        reservationResponse.status === 200 ||
+        reservationResponse.status === 201
+      ) {
+        // Add a record to the ReservationHistory table
+        const historyData = {
+          UserID: userID,
+          BookID: bookID,
+          ReservationID: reservationResponse.data.ReservationID, // Include ReservationID
+          DateReserved: reservationData.ReservationDate,
+        };
+        await axios.post(
+          "http://localhost:8900/reservation-history",
+          historyData
+        );
+      }
 
       // Update the books state to reflect the change in availability
       setBooks(
@@ -78,13 +99,12 @@ const Books = () => {
   };
 
   return (
-    <div>
+    <div className="books-container">
       <Navbar />
       <h1>All Books</h1>
-      <table>
+      <table className="books-table">
         <thead>
           <tr>
-            <th>Cover</th>
             <th>Title</th>
             <th>Author</th>
             <th>Publication Year</th>
@@ -95,15 +115,6 @@ const Books = () => {
         <tbody>
           {books.map((book) => (
             <tr key={book.BookID}>
-              <td>
-                {book.cover && (
-                  <img
-                    src={book.cover}
-                    alt={book.Title}
-                    style={{ width: "100px" }}
-                  />
-                )}
-              </td>
               <td>{book.Title}</td>
               <td>{book.Author}</td>
               <td>{book.PublicationYear}</td>
@@ -111,13 +122,13 @@ const Books = () => {
               <td>
                 {book.Availability ? (
                   <button
-                    className="reserve"
+                    className="reserve-button"
                     onClick={() => handleReserve(book.BookID)}
                   >
                     Reserve
                   </button>
                 ) : (
-                  getReservationStatus(book.BookID)
+                  "Reserved"
                 )}
               </td>
             </tr>

@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import validation from "./SignupValidation";
+import validation from "../components/SignupValidation";
 import axios from "axios";
 
 function Singup() {
@@ -43,11 +43,11 @@ function Singup() {
   };
 
   return (
-    <div className="d-flex justify-content-center align-items-center bg-primary vh-100">
-      <div className="bg-white p-3 rounded w-25">
+    <div className="signup-container">
+      <div className="signup-box">
         <h2>Sign-Up</h2>
-        <form action="" onSubmit={handleSubmit}>
-          <div className="mb-3">
+        <form onSubmit={handleSubmit}>
+          <div className="">
             <label htmlFor="First Name">
               <strong>First Name</strong>
             </label>
@@ -56,13 +56,13 @@ function Singup() {
               onChange={handleInput}
               name="firstName"
               placeholder="Enter First Name"
-              className="form-control rounded-0"
+              className=""
             />
             {errors.firstName && (
               <span className="text-danger"> {errors.firstName}</span>
             )}
           </div>
-          <div className="mb-3">
+          <div className="">
             <label htmlFor="Last Name">
               <strong>Last Name</strong>
             </label>
@@ -71,13 +71,13 @@ function Singup() {
               name="lastName"
               onChange={handleInput}
               placeholder="Enter Last Name"
-              className="form-control rounded-0"
+              className=""
             />
             {errors.lastName && (
               <span className="text-danger"> {errors.lastName}</span>
             )}
           </div>
-          <div className="mb-3">
+          <div className="">
             <label htmlFor="Username">
               <strong>Username</strong>
             </label>
@@ -86,13 +86,13 @@ function Singup() {
               name="username"
               onChange={handleInput}
               placeholder="Enter Username"
-              className="form-control rounded-0"
+              className=""
             />
             {errors.username && (
               <span className="text-danger"> {errors.username}</span>
             )}
           </div>
-          <div className="mb-3">
+          <div className="">
             <label htmlFor="email">
               <strong>Email</strong>
             </label>
@@ -101,13 +101,13 @@ function Singup() {
               name="email"
               onChange={handleInput}
               placeholder="Enter Email"
-              className="form-control rounded-0"
+              className=""
             />
             {errors.email && (
               <span className="text-danger"> {errors.email}</span>
             )}
           </div>
-          <div className="mb-3">
+          <div className="">
             <label htmlFor="password">
               <strong>Password</strong>
             </label>
@@ -116,20 +116,17 @@ function Singup() {
               name="password"
               onChange={handleInput}
               placeholder="Enter Password"
-              className="form-control rounded-0"
+              className=""
             />
             {errors.password && (
               <span className="text-danger"> {errors.password}</span>
             )}
           </div>
-          <button type="submit" className="btn btn-success w-100 rounded-0">
+          <button type="submit" className="">
             Sign up
           </button>
           <p>Agreeing to our terms and services</p>
-          <Link
-            to="/"
-            className="btn btn-default border w-100 bg-light rounded-0 text-decoration-none"
-          >
+          <Link to="/" className="">
             Log in
           </Link>
         </form>

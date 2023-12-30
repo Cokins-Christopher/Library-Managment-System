@@ -1,3 +1,21 @@
+@import "./Styles/navbar.css";
+@import "./Styles/home.css";
+@import "./Styles/login.css";
+@import "./Styles/signup.css";
+@import "./Styles/books.css";
+@import "./Styles/reservations.css";
+@import "./Styles/account.css";
+@import "./Styles/accountinfo.css";
+@import "./Styles/reservationhistory.css";
+@import "./Styles/adminbutton.css";
+@import "./Styles/admin.css";
+
+
+
+
+
+
+
 .App {
   background-color: #fefefe;
   height: 100%;

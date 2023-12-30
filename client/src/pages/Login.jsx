@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import validation from "./LoginValidation";
+import validation from "../components/LoginValidation";
 import axios from "axios";
 
 function Login() {
@@ -11,13 +11,12 @@ function Login() {
 
   const navigate = useNavigate();
   const [errors, setErrors] = useState({});
- const handleInput = (e) => {
-   setValues({
-     ...values,
-     [e.target.name]: e.target.value, // Update from [e.target.value] to e.target.value
-   });
- };
-
+  const handleInput = (e) => {
+    setValues({
+      ...values,
+      [e.target.name]: e.target.value, // Update from [e.target.value] to e.target.value
+    });
+  };
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -25,32 +24,36 @@ function Login() {
     const newErrors = validation(values);
     setErrors(newErrors);
 
-    // Check if there are any errors
     if (Object.keys(newErrors).some((key) => newErrors[key])) {
-      // If there are errors, don't proceed with the login
       return;
     }
 
-    // No errors, proceed with login
     axios
       .post("http://localhost:8900/users", values)
       .then((res) => {
         if (res.data.status === "Success") {
-          navigate(`/home/${res.data.userID}`);
+          // Check if the user is an admin
+          if (res.data.isAdmin) {
+            navigate(`/home/${res.data.userID}`); // Replace with your admin page route
+          } else {
+            navigate(`/home/${res.data.userID}`);
+          }
         } else {
-          alert("User not found");
+          alert(res.data.message || "Login failed");
         }
       })
-      .catch((err) => console.log(err));
+      .catch((err) => {
+        console.error(err);
+        alert("An error occurred during login");
+      });
   };
 
-
   return (
-    <div className="d-flex justify-content-center align-items-center bg-primary vh-100">
-      <div className="bg-white p-3 rounded w-25">
+    <div className="login-container">
+      <div className="login-box">
         <h2>Log-In</h2>
-        <form action="" onSubmit={handleSubmit}>
-          <div className="mb-3">
+        <form onSubmit={handleSubmit}>
+          <div className="">
             <label htmlFor="email">
               <strong>Email</strong>
             </label>
@@ -59,13 +62,13 @@ function Login() {
               placeholder="Enter Email"
               name="email"
               onChange={handleInput}
-              className="form-control rounded-0"
+              className=""
             />
             {errors.email && (
               <span className="text-danger"> {errors.email}</span>
             )}
           </div>
-          <div className="mb-3">
+          <div className="">
             <label htmlFor="password">
               <strong>Password</strong>
             </label>
@@ -74,20 +77,17 @@ function Login() {
               placeholder="Enter Password"
               name="password"
               onChange={handleInput}
-              className="form-control rounded-0"
+              className=""
             />
             {errors.password && (
               <span className="text-danger"> {errors.password}</span>
             )}
           </div>
-          <button type="submit" className="btn btn-success w-100 rounded-0">
+          <button type="submit" className="">
             Log in
           </button>
           <p>Agreeing to our terms and services</p>
-          <Link
-            to="/signup"
-            className="btn btn-default border w-100 bg-light rounded-0 text-decoration-none"
-          >
+          <Link to="/signup" className="">
             Create Account
           </Link>
         </form>
