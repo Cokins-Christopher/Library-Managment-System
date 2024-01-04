@@ -67,7 +67,7 @@ function UpdateInfo() {
               name="FirstName"
               value={userInfo.FirstName}
               onChange={handleInputChange}
-              className="form-control rounded-0"
+              className=""
             />
             {errors.FirstName && (
               <span className="text-danger">{errors.FirstName}</span>
@@ -82,7 +82,7 @@ function UpdateInfo() {
               name="LastName"
               value={userInfo.LastName}
               onChange={handleInputChange}
-              className="form-control rounded-0"
+              className=""
             />
             {errors.LastName && (
               <span className="text-danger">{errors.LastName}</span>
@@ -97,7 +97,7 @@ function UpdateInfo() {
               name="Email"
               value={userInfo.Email}
               onChange={handleInputChange}
-              className="form-control rounded-0"
+              className=""
             />
             {errors.Email && (
               <span className="text-danger">{errors.Email}</span>
@@ -112,7 +112,7 @@ function UpdateInfo() {
               name="Username"
               value={userInfo.Username}
               onChange={handleInputChange}
-              className="form-control rounded-0"
+              className=""
             />
             {errors.Username && (
               <span className="text-danger">{errors.Username}</span>
@@ -128,7 +128,7 @@ function UpdateInfo() {
               value={userInfo.UserPassword}
               onChange={handleInputChange}
               placeholder="Enter new password"
-              className="form-control rounded-0"
+              className=""
             />
             {errors.UserPassword && (
               <span className="text-danger">{errors.UserPassword}</span>
@@ -136,7 +136,7 @@ function UpdateInfo() {
           </div>
 
           {/* Submit Button */}
-          <button type="submit" className="btn btn-success w-100 rounded-0">
+          <button type="submit" className="">
             Save Changes
           </button>
         </form>
